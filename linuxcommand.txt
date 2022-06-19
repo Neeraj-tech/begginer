@@ -3,9 +3,11 @@ sudo sh -c 'echo 1 > /proc/sys/vm/drop_caches'
 #To clear Dentries and Inodes
 sudo sh -c 'echo 2 > /proc/sys/vm/drop_caches'
 #To clear PageCache, Dentries & Inodes
-sudo sh -c 'echo 1 > /proc/sys/vm/drop_caches'
+sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'
 #Copy paste in Nano Editor   
  CTRL + 6 (or CTRL + Shift + 6 or hold Shift and move cursor) for Mark Set and mark what you want (the end could do some extra help).
  ALT + 6 for copying the marked text.
  CTRL + u at the place you want to paste.
-#
+#Close terminal
+ctrl+shift+w	to close a tab
+ctrl+shift+q	to close all tab
