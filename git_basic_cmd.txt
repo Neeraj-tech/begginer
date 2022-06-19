@@ -1,0 +1,33 @@
+Chapter: Common Git Command
+mkdir project	Create project directory
+nano 1.txt
+git init	initialized a local git repository
+git status
+git add <file_name>
+git add .	to add all file
+git commit -m "My First Commit"		
+git status	tree clean	means all file are saved in git file system.
+Create Repository on github
+git remote add origin "url"
+git push origin master		master is <branch_name> Files pushed to remote repository
+Requires user_name & password. In password paste personal access token.
+For adding/updating the file in remote repository we need to add commit & push
+Come out of the directory & create new directory.
+git clone	to clone the whole remote repository content.
+git pull url		to pull a file
+git pull origin master		to update the local repository from remote repository
+git branch feature1	Creates a branch
+git branch		list all branch
+git branch -d feature1	delete branch
+git checkout feature1	to switch to feature1 branch
+The last Commit of Master branch become the first commit of the feature branch
+git log			History of branch.
+git stash		Putting on hold the work. So that it doesnot show up in other branch
+git stash pop		To resume work.
+git revert <commit_id>	Revert the changes.
+git stash <commit_id>	To see the commit changes
+git checkout feature1	to return to orinal state
+git diff <commit_id> <commit_id>	Gives difference between two commit.
+git diff HEAD .		Gives difference between latest commit & what is in folder.
+
+
