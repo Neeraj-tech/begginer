@@ -1,0 +1,52 @@
+# Docker
+# Installion
+apt install docker.io
+# Check
+docker --version
+service docker status
+service docker start
+# May Refer https://docs.docker.com/engine/install/ubuntu/
+
+# Commands
+docker pull ubuntu		 download ubuntu from docker hub
+docker images			 List all images
+docker run -dit ubuntu		 run image    d- detached, i- Interacted, t-terminal
+#container id come    56f5185984ccf1873e772432fb53af31594612409d6153181bc1ae9e21f2527c
+docker ps		 It will show container which are up & running
+docker run -dit --name ubuntu-container ubuntu		 to give container name
+docker ps -a						 It will show all container
+docker exec -it <id or name> /bin/bash			 Connect/login inside the container
+exit							 to exit
+docker stop <container_id>
+docker start <container_id> 
+docker kill <container_id>		 Forcefully stop the container
+docker rm <container_id>		 to delete the container, first container need to stopped
+docker rmi <image_id>			 to delete the image from local machine, should not be used
+docker logs <container_id>
+#Images cannot be customized, you have to create a new image.
+#Check var/lib/docker
+
+#Guide to Docker File.
+#FROM ubuntu       	 The from keyword is used to define the base image, on which we will be building.
+#COPY ./index.html   	 copy from local machine to container
+#ADD           		 Dynamic file
+#RUN           		 Executes the command when the image is build.
+#CMD           		 Executes the command when the container is created
+#ENTRYPOINT       	 Executes the command when the container …….
+#ENV
+#Example:
+FROM ubuntu
+RUN apt update -y
+RUN apt install apache2 -y
+RUN apt install git -y
+COPY ./index.html /var/www/html
+ADD https://get.jenkins.io/war-stable/2.332.3/jenkins.war /var/www/html
+CMD apachectl -D FOREGROUND
+ENV package1=docker.io
+RUN apt install $package1 -y
+
+#terminal:
+docker build -t <image_name>:tag path_to_dockerfile
+docker run -dit --name custom_image_container custom_image:1.0
+docker run -dit --name custome_image_container2 -p 80:80  custom_image:3.0
+#Above -p 80:80 refer to port mapping left side refer on the browser 80:80 right side Expose on the docker file.

@@ -1,0 +1,26 @@
+#Jenkins
+#Installion
+Apt update -y
+Apt install default-jdk -y
+#Website: https://pkg.jenkins.io/debian-stable/
+#Follow instructions
+Service Jenkins status
+#Goto LOCALHOST:8080/
+Cat <link>         will provide password
+#Put password & fill in detail.
+#Once you logged in provide username & password from now on this username & password will be required to log1n.
+
+chmod -R 777 build_server
+#Some more usefull commands for executive shell
+#AWS command to copy the package to the S3 bucket.
+aws s3 cp /home/ec2-user/maven_job/workspace/maven_build_job/target/CounterWebApp.war s3://neerajagarwal/
+
+# Delete the old package from the server
+rm -rf /home/ec2-user/tomcat/webapps/
+
+#Copy the new package to the deploy server.
+aws s3 cp s3://neerajagarwal/CounterWebApp.war /home/ec2-user/tomcat/webapps/
+
+#Instead of creating job we can also write code.
+#Create a jenkinsfile & write code.
+#Check github for sample file.
