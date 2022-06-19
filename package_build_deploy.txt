@@ -28,7 +28,7 @@ cd hellow-world-project
 cd target
 cp hellow-world-project.war ../../tomcat/webapps/
 cd tomcat
-./bin/startup.sh start       Tomcat started
+./bin/startup.sh        Tomcat started
 
 #In browser LOCALHOST:8080/hellow-world-project/
 ./bin/shutdown.sh        to shut down tomcat
