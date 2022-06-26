@@ -23,10 +23,19 @@ docker kill <container_id>		 Forcefully stop the container
 docker rm <container_id>		 to delete the container, first container need to stopped
 docker rmi <image_id>			 to delete the image from local machine, should not be used
 docker logs <container_id>
+
 #Images cannot be customized, you have to create a new image.
+docker commit <container_ID or Name> <image_name harodia/ubuntunew:1.0.1 >
+
+#Push Image to Dockerhub
+#imagename must prefixed with username
+docker push harodia/ubuntunew:1.0.1
+
 #Check var/lib/docker
 
 #Guide to Docker File.
+#file name must be dockerfile	no extention
+
 #FROM ubuntu       	 The from keyword is used to define the base image, on which we will be building.
 #COPY ./index.html   	 copy from local machine to container
 #ADD           		 Dynamic file
@@ -46,7 +55,11 @@ ENV package1=docker.io
 RUN apt install $package1 -y
 
 #terminal:
-docker build -t <image_name>:tag path_to_dockerfile
+#remember to put . at the end
+docker build -t harodia/custom_image:1.0 .
+docker build -t <image_name>:tag path_to_dockerfile .
+
 docker run -dit --name custom_image_container custom_image:1.0
+
 docker run -dit --name custome_image_container2 -p 80:80  custom_image:3.0
 #Above -p 80:80 refer to port mapping left side refer on the browser 80:80 right side Expose on the docker file.
