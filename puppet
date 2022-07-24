@@ -1,0 +1,97 @@
+#puppet master installtion
+
+sudo apt-get update
+wget https://apt.puppet.com/puppet7-release-focal.deb
+sudo dpkg -i puppet7-release-focal.deb
+sudo apt-get update
+sudo apt-get install puppetmaster -y
+#Edit configuration file
+sudo nano /etc/default/puppet-master
+JAVA_ARGS="-Xms512m Xmx512m" //Add this Line
+sudo systemctl restart puppet-master
+sudo ufw allow 8140/tcp
+#Edit hosts file
+sudo nano /etc/hosts
+<IP_address of slaves> puppet
+#after slave installation run below commands
+sudo puppet cert list
+sudo puppet cert sign --all
+sudo mkdir -p /etc/puppet/code/environments/production/manifests
+sudo nano /etc/puppet/code/environments/production/manifests/site.pp
+
+file {'/tmp/it_works.txt':
+  ensure => present,
+  mode => '0644',
+  content => "It works on ${ipaddress_eth0}!\n",
+}
+
+sudo systemctl restart puppet-master
+
+
+#puppet slave installtion
+
+sudo apt-get update
+wget https://apt.puppet.com/puppet7-release-focal.deb
+sudo dpkg -i puppet7-release-focal.deb
+sudo apt-get update
+sudo apt-get install puppet -y
+#Edit hosts file
+sudo nano /etc/hosts
+<IP_address of master> puppet
+
+sudo systemctl start puppet
+sudo systemctl enable puppet
+
+#after manifests file added in master
+sudo puppet agent --test
+cat /tmp/it_works.txt
+
+#congratulation puppet set up complete
+#Try following manifests
+******************************************************************
+node default{
+
+package {'nginx':
+ensure => installed,
+
+}
+
+file {'/tmp/it_works.txt':
+  ensure => present,
+  mode => '0644',
+  content => "It works on ${ipaddress_eth0}!\n",
+}
+}
+*******************************************************************
+node default{
+
+$packages = ['apache2','mysql-server']
+
+package {$packages:
+ensure => installed,
+}
+}
+
+********************************************************************
+node default{
+
+exec {"conditions":
+
+command => "/bin/echo apache2 is installed > /tmp/status_apache.txt",
+onlyif => "/bin/which apache2",
+}
+}
+
+********************************************************************
+
+node default{
+
+exec {"conditions":
+
+command => '/bin/echo apache2 is not installed > /tmp/status_apache.txt',
+unless => '/bin/which apache2',
+}
+}
+
+***********************************************************************
+try class also
